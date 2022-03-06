@@ -17,7 +17,10 @@ export default {
     // returns new time in H:M format
     function getTime() {
       const date = new Date();
-      time.value = ` ${date.getHours() % 12 || 12}:${date.getMinutes()}`;
+      // conver to 12h format && add trailing 0 to minutes > 10
+      time.value = ` ${date.getHours() % 12 || 12}:${
+        (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+      }`;
     }
 
     onMounted(() => {
