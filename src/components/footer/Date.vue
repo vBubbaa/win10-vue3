@@ -1,5 +1,8 @@
 <template>
-  {{ time }}
+  <div id="datetime">
+    <div>{{ time }}</div>
+    <div>{{ dateStr }}</div>
+  </div>
 </template>
 
 <script>
@@ -11,7 +14,13 @@ export default {
     const initDate = new Date();
     const time = ref(
       // eslint-disable-next-line comma-dangle
-      `${initDate.getHours() % 12 || 12}:${initDate.getMinutes()}`
+      `${initDate.getHours() % 12 || 12}:${initDate.getMinutes()}`,
+    );
+    const dateStr = ref(
+      // eslint-disable-next-line comma-dangle
+      `${
+        initDate.getMonth() + 1
+      }/${initDate.getDate()}/${initDate.getFullYear()}`,
     );
 
     // returns new time in H:M format
@@ -32,10 +41,21 @@ export default {
 
     return {
       time,
+      dateStr,
     };
   },
 };
 </script>
 
 <style>
+#datetime {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+#datetime div {
+  display: flex;
+  justify-content: center;
+}
 </style>
