@@ -1,7 +1,7 @@
 <template>
   <footer id="footer">
     <div class="flex-row start">
-      <div class="footer-item">
+      <div class="footer-item" @click="dispatchShowFooterNav">
         <font-awesome-icon id="windows-icon" :icon="['fab', 'windows']" />
       </div>
     </div>
@@ -13,13 +13,22 @@
 
 <script>
 import Date from './footer/Date.vue';
+import store from '../store';
 
 export default {
   name: 'Footer',
   components: {
     Date,
   },
-  setup() {},
+  setup() {
+    function dispatchShowFooterNav() {
+      store.commit('setShowFooterNav');
+    }
+
+    return {
+      dispatchShowFooterNav,
+    };
+  },
 };
 </script>
 
@@ -29,6 +38,7 @@ export default {
   height: 50px;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 #footer * {

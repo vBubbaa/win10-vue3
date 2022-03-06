@@ -2,10 +2,15 @@ import { createStore } from 'vuex';
 
 export default createStore({
   state: {
+    showFooterNav: false,
   },
   mutations: {
+    setShowFooterNav(state) {
+      state.showFooterNav = !state.showFooterNav;
+    },
   },
-  actions: {
+  getters: {
+    getShowFooterNav: (state) => state.showFooterNav,
   },
   modules: {
   },

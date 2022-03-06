@@ -1,14 +1,18 @@
 <template>
-  <main>main</main>
+  <main>
+    <div>main</div>
+  </main>
+  <windows-menu />
   <Footer />
 </template>
 
 <script>
 import Footer from './components/Footer.vue';
+import WindowsMenu from './components/footer/WindowsMenu.vue';
 
 export default {
   name: 'App',
-  components: { Footer },
+  components: { Footer, WindowsMenu },
 };
 </script>
 
@@ -33,5 +37,14 @@ main {
   padding-top: 10px;
   background-image: url('./assets/win10-background.jpg');
   background-size: cover;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
 </style>
