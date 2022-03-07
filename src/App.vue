@@ -1,6 +1,7 @@
 <template>
   <main>
     <div>main</div>
+    <Window title="Test Folder" />
   </main>
   <windows-menu />
   <Footer />
@@ -9,10 +10,11 @@
 <script>
 import Footer from './components/Footer.vue';
 import WindowsMenu from './components/footer/WindowsMenu.vue';
+import Window from './components/window/Window.vue';
 
 export default {
   name: 'App',
-  components: { Footer, WindowsMenu },
+  components: { Footer, WindowsMenu, Window },
 };
 </script>
 
@@ -28,6 +30,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+  overflow: hidden;
 }
 
 /* full-height view - 50px for the footer size - 10px for the padding */
