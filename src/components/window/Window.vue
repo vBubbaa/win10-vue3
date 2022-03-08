@@ -5,13 +5,15 @@
       :class="{ maximized: expandedView }"
       ref="folder"
     >
-      <div class="header">
+      <div class="header" @dblclick="changeWindowSize">
         <div class="left">
           <div>{{ props.title }}</div>
-          <!-- TODO: change this to @dblclick on header bar -->
-          <button @click="changeWindowSize">expand</button>
         </div>
-        <div class="right">- O X</div>
+        <div class="right">
+          <Button icon="window-minimize" type="primary" />
+          <Button icon="maximize" @click="changeWindowSize" type="primary" />
+          <Button icon="x" type="danger" />
+        </div>
       </div>
     </div>
   </div>
@@ -26,11 +28,13 @@
 <script>
 import Moveable from 'vue3-moveable';
 import { ref } from 'vue';
+import Button from '../ui/Button.vue';
 
 export default {
   name: 'Window',
   components: {
     Moveable,
+    Button,
   },
   props: {
     title: String,
@@ -41,6 +45,9 @@ export default {
     // folder div reference
     const folder = ref('folder');
 
+    // variable used ot save the folder location before it maximizes to full-screen
+    let folderLocationPreExpand = '';
+
     // Handle window drag
     const onDrag = (e) => {
       e.target.style.transform = e.transform;
@@ -50,8 +57,13 @@ export default {
     const changeWindowSize = () => {
       expandedView.value = !expandedView.value;
       if (expandedView.value === true) {
+        // save location of folder pre-expand
+        folderLocationPreExpand = folder.value.style.transform;
         // clear inline styles applied by moveable to force it to top:0 left: 0
         folder.value.style = '';
+      } else {
+        // its going back to small view, so send it back to the location pre-maxmize
+        folder.value.style.transform = folderLocationPreExpand;
       }
     };
 
@@ -61,6 +73,7 @@ export default {
       expandedView,
       changeWindowSize,
       folder,
+      folderLocationPreExpand,
     };
   },
 };
@@ -96,17 +109,21 @@ export default {
 .header {
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 /* left side of header */
 .left {
   flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
 }
 
 /* right side of header */
-.end {
-  flex: 0 0 auto;
+.right {
+  display: flex;
+  flex-direction: row;
 }
 
 .maximized {
