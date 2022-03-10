@@ -1,7 +1,10 @@
 <template>
   <main>
     <div>main</div>
-    <Window title="Test Folder" />
+    <window-wrapper>
+      <Window title="Test Folder 123" />
+      <Window title="Test Folder" />
+    </window-wrapper>
   </main>
   <windows-menu />
   <Footer />
@@ -11,10 +14,16 @@
 import Footer from './components/Footer.vue';
 import WindowsMenu from './components/footer/WindowsMenu.vue';
 import Window from './components/window/Window.vue';
+import WindowWrapper from './components/window/WindowWrapper.vue';
 
 export default {
   name: 'App',
-  components: { Footer, WindowsMenu, Window },
+  components: {
+    Footer,
+    WindowsMenu,
+    Window,
+    WindowWrapper,
+  },
 };
 </script>
 

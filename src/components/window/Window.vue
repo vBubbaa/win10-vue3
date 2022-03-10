@@ -1,23 +1,22 @@
 <template>
-  <div class="invisible-wrapper">
-    <div
-      class="folder-wrapper"
-      :class="{ maximized: expandedView }"
-      :id="uid"
-      ref="folder"
-    >
-      <div class="header" @dblclick="changeWindowSize">
-        <div class="left">
-          <div>{{ props.title }}</div>
-        </div>
-        <div class="right">
-          <Button icon="window-minimize" type="primary" />
-          <Button icon="maximize" @click="changeWindowSize" type="primary" />
-          <Button icon="x" type="danger" />
-        </div>
+  <div
+    class="folder-wrapper"
+    :class="{ maximized: expandedView }"
+    :id="uid"
+    ref="folder"
+  >
+    <div class="header" @dblclick="changeWindowSize">
+      <div class="left">
+        <div>{{ props.title }}</div>
+      </div>
+      <div class="right">
+        <Button icon="window-minimize" type="primary" />
+        <Button icon="maximize" @click="changeWindowSize" type="primary" />
+        <Button icon="x" type="danger" />
       </div>
     </div>
   </div>
+
   <Moveable
     className="moveable"
     v-bind:target="[uidHash]"
@@ -109,15 +108,6 @@ export default {
   height: 500px;
   width: 500px;
   background-color: white;
-}
-
-/* invisible wrapper that is 100% of main */
-.invisible-wrapper {
-  width: 100vw;
-  position: absolute;
-  height: calc(100vh - 50px);
-  top: 0;
-  left: 0;
 }
 
 .header {
