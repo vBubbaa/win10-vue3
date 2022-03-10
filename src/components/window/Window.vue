@@ -3,6 +3,7 @@
     <div
       class="folder-wrapper"
       :class="{ maximized: expandedView }"
+      :id="uid"
       ref="folder"
     >
       <div class="header" @dblclick="changeWindowSize">
@@ -19,7 +20,7 @@
   </div>
   <Moveable
     className="moveable"
-    v-bind:target="['.folder-wrapper']"
+    v-bind:target="[uidHash]"
     v-bind:draggable="!expandedView"
     @drag="onDrag"
   />
@@ -27,7 +28,8 @@
 
 <script>
 import Moveable from 'vue3-moveable';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import uniqueID from 'lodash.uniqueid';
 import Button from '../ui/Button.vue';
 
 export default {
@@ -44,6 +46,10 @@ export default {
     const expandedView = ref(false);
     // folder div reference
     const folder = ref('folder');
+    // unique ID used to identify component instance
+    const uid = ref(null);
+    // uid with # for moveable identifier
+    const uidHash = ref(null);
 
     // variable used ot save the folder location before it maximizes to full-screen
     let folderLocationPreExpand = '';
@@ -67,6 +73,12 @@ export default {
       }
     };
 
+    onMounted(() => {
+      uid.value = `folder-${uniqueID()}`;
+      // id value with leading # to tell moveable its looking for the ID uid.value
+      uidHash.value = `#${uid.value}`;
+    });
+
     return {
       onDrag,
       props,
@@ -74,6 +86,8 @@ export default {
       changeWindowSize,
       folder,
       folderLocationPreExpand,
+      uid,
+      uidHash,
     };
   },
 };
